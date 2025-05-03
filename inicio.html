@@ -64,9 +64,53 @@
             <p class="descripcion">Simplemente eres la mejor</p>
         </div>
     </div>
+    <!-- Modal para las imágenes -->
+    <div id="imageModal" class="modal">
+        <span class="close">&times;</span>
+        <img class="modal-content" id="modalImage">
+        <div id="modalCaption"></div>
+    </div>
 
     <footer class="gallery-footer">
         <p>Con todo mi amor para ti ❤</p>
     </footer>
+
+    <script>
+        // JavaScript para el modal
+        const modal = document.getElementById("imageModal");
+        const modalImg = document.getElementById("modalImage");
+        const captionText = document.getElementById("modalCaption");
+        const closeBtn = document.getElementsByClassName("close")[0];
+
+        // Agregar evento click a todas las imágenes
+        document.querySelectorAll('.imagen-container img').forEach(img => {
+            img.onclick = function() {
+                modal.style.display = "block";
+                modalImg.src = this.src;
+                captionText.innerHTML = this.parentElement.querySelector('.descripcion').innerHTML;
+                document.body.style.overflow = 'hidden'; // Previene el scroll
+            }
+        });
+
+        // Cerrar modal
+        function closeModal() {
+            modal.style.display = "none";
+            document.body.style.overflow = 'auto'; // Restaura el scroll
+        }
+
+        closeBtn.onclick = closeModal;
+        modal.onclick = function(event) {
+            if (event.target === modal) {
+                closeModal();
+            }
+        }
+
+        // Cerrar con tecla ESC
+        document.addEventListener('keydown', function(event) {
+            if (event.key === "Escape") {
+                closeModal();
+            }
+        });
+    </script>
 </body>
 </html>
